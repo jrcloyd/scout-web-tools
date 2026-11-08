@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<!--
+  Scout Web Tools - Directory Index
+  Repository: https://github.com/jrcloyd/scout-web-tools
+  License: MIT (SPDX-License-Identifier: MIT)
+-->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scout Web Tools</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --scout-blue: #003F87;
+            --scout-blue-dark: #002a5c;
+            --scout-gold: #F5D130;
+            --bg-light: #f4f6fa;
+            --card-bg: #ffffff;
+            --text-main: #222222;
+            --text-muted: #555555;
+            --border-color: #dce2ec;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            margin: 0;
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+            line-height: 1.5;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 920px;
+            flex: 1;
+        }
+
+        .hero-header {
+            background: linear-gradient(135deg, #003F87 0%, #002654 100%);
+            color: #ffffff;
+            padding: 28px 30px;
+            border-radius: 10px;
+            border-bottom: 4px solid var(--scout-gold);
+            margin-bottom: 28px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+            text-align: center;
+        }
+
+        .hero-header h1 {
+            font-family: 'Cinzel', serif;
+            font-variant: small-caps;
+            font-size: 30px;
+            margin: 0 0 8px 0;
+            letter-spacing: 1px;
+        }
+
+        .hero-header p {
+            margin: 0;
+            font-size: 15px;
+            color: #e3f2fd;
+        }
+
+        .category-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+        }
+
+        .category-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--scout-blue);
+            margin: 0 0 18px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--scout-gold);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .subcategory-group {
+            margin-bottom: 24px;
+        }
+
+        .subcategory-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .subcategory-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--scout-blue-dark);
+            background: #eef4fb;
+            border-left: 4px solid var(--scout-blue);
+            padding: 8px 14px;
+            border-radius: 0 6px 6px 0;
+            margin: 0 0 16px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 18px;
+        }
+
+        .tool-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: #fbfcfe;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+        }
+
+        .tool-card:hover,
+        .tool-card:focus-visible {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(0, 63, 135, 0.12);
+            border-color: var(--scout-blue);
+            outline: none;
+        }
+
+        .tool-card.coming-soon {
+            background: #f8f9fc;
+            border-style: dashed;
+            cursor: default;
+        }
+
+        .tool-card.coming-soon:hover {
+            transform: none;
+            box-shadow: none;
+            border-color: var(--border-color);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .card-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 8px;
+            background: #e3f2fd;
+            color: var(--scout-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .card-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--scout-blue);
+            margin: 0;
+        }
+
+        .card-description {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin: 0 0 16px 0;
+            flex: 1;
+        }
+
+        .card-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13.5px;
+            font-weight: 600;
+            color: var(--scout-blue);
+        }
+
+        .tool-card:hover .card-action {
+            color: var(--scout-blue-dark);
+            text-decoration: underline;
+        }
+
+        .badge-coming-soon {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            align-self: flex-start;
+            background: #fff8e1;
+            color: #b26a00;
+            border: 1px solid #ffe082;
+            padding: 4px 10px;
+            border-radius: 14px;
+            font-size: 12.5px;
+            font-weight: 700;
+        }
+
+        .site-footer {
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+            font-size: 13px;
+            color: var(--text-muted);
+            text-align: center;
+            width: 100%;
+            max-width: 920px;
+        }
+
+        .site-footer a {
+            color: var(--scout-blue);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .site-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+        <header class="hero-header">
+            <h1><span aria-hidden="true">⚜️</span> Scout &amp; Community Web Tools</h1>
+            <p>Web utilities, certificate generators, craft guides, and community resources</p>
+        </header>
+
+        <!-- Category: Scouting -->
+        <section class="category-section" aria-labelledby="cat-scouting">
+            <h2 id="cat-scouting" class="category-title">
+                <span aria-hidden="true">🏕️</span> Scouting
+            </h2>
+
+            <!-- Subcategory: AOL -->
+            <div class="subcategory-group" aria-labelledby="subcat-aol">
+                <h3 id="subcat-aol" class="subcategory-title">
+                    <span aria-hidden="true">🏹</span> AOL (Arrow of Light)
+                </h3>
+
+                <div class="card-grid">
+                    <a href="aol/AOLCertificateMaker.html" class="tool-card"
+                        title="Open the Pack Arrow and Certificate Customizer tool"
+                        aria-label="Open Pack Arrow and Certificate Customizer">
+                        <div>
+                            <div class="card-header">
+                                <div class="card-icon" aria-hidden="true">📜</div>
+                                <h4 class="card-title">Pack Arrow &amp; Certificate Customizer</h4>
+                            </div>
+                            <p class="card-description">
+                                Import Scoutbook rank and camp data to generate custom Arrow of Light certificates and
+                                printable 11-inch arrow color band strips for your entire den or pack.
+                            </p>
+                        </div>
+                        <span class="card-action">
+                            Open Customizer <span aria-hidden="true">➔</span>
+                        </span>
+                    </a>
+
+                    <a href="aol/AOLArrowCraftInstructions.html" class="tool-card"
+                        title="Open the 24-Inch Arrow of Light Career Arrow Craft Guide"
+                        aria-label="Open Arrow of Light Career Arrow Craft Guide">
+                        <div>
+                            <div class="card-header">
+                                <div class="card-icon" aria-hidden="true">🛠️</div>
+                                <h4 class="card-title">Career Arrow Craft Instructions</h4>
+                            </div>
+                            <p class="card-description">
+                                Printable 2-page Den Leader supply checklist and step-by-step Scout instructions for
+                                building and painting 24-inch wooden career arrows.
+                            </p>
+                        </div>
+                        <span class="card-action">
+                            View Craft Guide <span aria-hidden="true">➔</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Subcategory: Troops -->
+            <div class="subcategory-group" aria-labelledby="subcat-troops">
+                <h3 id="subcat-troops" class="subcategory-title">
+                    <span aria-hidden="true">🧭</span> Troops
+                </h3>
+
+                <div class="card-grid">
+                    <div class="tool-card coming-soon"
+                        title="Tools for troop training and merit badge counselor management are currently in development"
+                        aria-label="Troop Training and Merit Badge Counselor Management - Coming Soon">
+                        <div>
+                            <div class="card-header">
+                                <div class="card-icon" aria-hidden="true">🎖️</div>
+                                <h4 class="card-title">Troop Training &amp; Merit Badge Counselor Management</h4>
+                            </div>
+                            <p class="card-description">
+                                Utilities for tracking adult leader and youth troop training statuses, along with merit
+                                badge counselor rosters and coverage management.
+                            </p>
+                        </div>
+                        <span class="badge-coming-soon">
+                            <span aria-hidden="true">⏳</span> Coming Soon
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Category: VITA (Volunteer Income Tax Assistance) -->
+        <section class="category-section" aria-labelledby="cat-vita">
+            <h2 id="cat-vita" class="category-title">
+                <span aria-hidden="true">📋</span> VITA (Volunteer Income Tax Assistance)
+            </h2>
+
+            <div class="card-grid">
+                <a href="https://herndontax.org" target="_blank" rel="noopener noreferrer" class="tool-card"
+                    title="Visit the HerndonTax.org Volunteer Income Tax Assistance website"
+                    aria-label="Visit HerndonTax.org Volunteer Income Tax Assistance website">
+                    <div>
+                        <div class="card-header">
+                            <div class="card-icon" aria-hidden="true">🏛️</div>
+                            <h3 class="card-title">HerndonTax.org</h3>
+                        </div>
+                        <p class="card-description">
+                            Free IRS-certified Volunteer Income Tax Assistance (VITA) resources, scheduling, and tax
+                            preparation information for qualifying taxpayers.
+                        </p>
+                    </div>
+                    <span class="card-action">
+                        Visit HerndonTax.org <span aria-hidden="true">↗</span>
+                    </span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <span aria-hidden="true">💻</span> Source code hosted at
+        <a href="https://github.com/jrcloyd/scout-web-tools" target="_blank" rel="noopener noreferrer"
+            title="View the scout-web-tools repository on GitHub"
+            aria-label="View the scout-web-tools repository on GitHub">
+            github.com/jrcloyd/scout-web-tools
+        </a>
+        &middot; Governed by the MIT License
+    </footer>
+
+    <script>
+        function debugLog(context, message, data = null) {
+            const timestamp = new Date().toISOString();
+            if (data !== null && data !== undefined) {
+                console.debug(`[ScoutWebToolsIndex][${timestamp}][${context}] ${message}`, data);
+            } else {
+                console.debug(`[ScoutWebToolsIndex][${timestamp}][${context}] ${message}`);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const linkCards = document.querySelectorAll('a.tool-card');
+            const comingSoonCards = document.querySelectorAll('.tool-card.coming-soon');
+            debugLog('Init', `Loaded index with ${linkCards.length} active links and ${comingSoonCards.length} coming-soon cards.`);
+            linkCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    debugLog('Navigation', `Navigating to tool: ${card.getAttribute('href')}`, {
+                        title: card.querySelector('.card-title')?.textContent?.trim()
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

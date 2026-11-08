@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<!--
+  Scout Web Tools - Arrow of Light Certificate & Arrow Customizer
+  Repository: https://github.com/jrcloyd/scout-web-tools
+  License: MIT (SPDX-License-Identifier: MIT)
+-->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pack Arrow & Certificate Customizer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Cormorant+SC:wght@600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .banner-link {
+            background-color: #e3f2fd;
+            border: 1px solid #90caf9;
+            color: #0d47a1;
+            padding: 12px 18px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 900px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .banner-link a {
+            color: #0d47a1;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        .banner-link a:hover {
+            color: #1565c0;
+        }
+
+        .panel {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 900px;
+            box-sizing: border-box;
+        }
+
+        .panel-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #003F87;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #F5D130;
+            padding-bottom: 5px;
+        }
+
+        .instructions {
+            font-size: 13px;
+            color: #333;
+            margin-bottom: 12px;
+            line-height: 1.5;
+            background: #f8f9fa;
+            border-left: 4px solid #003F87;
+            padding: 10px 12px;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .instructions ul {
+            margin: 6px 0 0 18px;
+            padding: 0;
+        }
+
+        textarea {
+            width: 100%;
+            height: 110px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            font-family: monospace;
+            font-size: 12px;
+            white-space: pre;
+            overflow-wrap: normal;
+            overflow-x: auto;
+        }
+
+        .status-msg {
+            font-size: 13px;
+            font-weight: bold;
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .input-group label {
+            font-size: 12px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"],
+        select {
+            padding: 8px;
+            font-size: 14px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .scout-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .action-bar {
+            margin-bottom: 10px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .export-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+        }
+
+        .export-btn:hover {
+            background-color: #45a049;
+        }
+
+        .export-btn.svg-btn {
+            background-color: #2196F3;
+        }
+
+        .export-btn.svg-btn:hover {
+            background-color: #1E88E5;
+        }
+
+        .export-btn.pdf-btn {
+            background-color: #f44336;
+        }
+
+        .export-btn.pdf-btn:hover {
+            background-color: #d32f2f;
+        }
+
+        .export-btn.purple-btn {
+            background-color: #7b1fa2;
+        }
+
+        .export-btn.purple-btn:hover {
+            background-color: #6a1b9a;
+        }
+
+        .svg-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            overflow-x: auto;
+            max-width: 100%;
+            text-align: center;
+            background-image: linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%, #eee),
+                linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%, #eee);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+        }
+
+        .cert-container {
+            background: #e0e0e0;
+        }
+
+        /* Dedicated Print Stylesheet */
+        @media print {
+            @page {
+                size: 11in 8.5in;
+                margin: 0;
+            }
+
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                max-width: 11in;
+                background: white;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            body>*:not(#print-container) {
+                display: none !important;
+            }
+
+            #print-container {
+                display: block !important;
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                max-width: 11in;
+            }
+
+            .cert-print-page {
+                width: 100%;
+                max-width: 11in;
+                height: 8.5in;
+                max-height: 100vh;
+                page-break-after: always;
+                break-after: page;
+                page-break-inside: avoid;
+                break-inside: avoid;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-sizing: border-box;
+                overflow: hidden;
+            }
+
+            .cert-print-page.single-page,
+            .cert-print-page:last-child {
+                page-break-after: avoid;
+                break-after: avoid;
+            }
+
+            .cert-print-page svg {
+                width: 100%;
+                height: 100%;
+                max-width: 1056px;
+                max-height: 816px;
+            }
+
+            .arrow-sheet-page {
+                box-sizing: border-box;
+                width: 100%;
+                max-width: 11in;
+                height: 8.5in;
+                max-height: 100vh;
+                padding: 0.3in 0.4in;
+                margin: 0 auto;
+                page-break-after: always;
+                break-after: page;
+                page-break-inside: avoid;
+                break-inside: avoid;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                overflow: hidden;
+            }
+
+            .arrow-sheet-page:last-child {
+                page-break-after: avoid;
+                break-after: avoid;
+            }
+
+            .arrow-strip {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                max-width: 10.2in;
+                border-bottom: 1px dashed #777;
+                padding: 4px 0;
+                box-sizing: border-box;
+                height: 1.15in;
+                overflow: hidden;
+            }
+
+            .arrow-strip-label {
+                width: 2.2in;
+                box-sizing: border-box;
+                font-family: 'Cinzel', 'Cormorant SC', 'Copperplate Gothic Bold', 'Copperplate', serif;
+                font-variant: small-caps;
+                font-size: 11pt;
+                font-weight: 700;
+                color: #000;
+                padding-right: 12px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                flex-shrink: 0;
+            }
+
+            .arrow-strip-svg {
+                flex: 1 1 auto;
+                min-width: 0;
+                height: 100%;
+                max-height: 1.05in;
+                display: flex;
+                align-items: center;
+            }
+
+            .arrow-strip-svg svg {
+                width: 100%;
+                max-width: 100%;
+                height: auto;
+                max-height: 1.05in;
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="banner-link">
+        <span aria-hidden="true">🏹</span> For instructions on a craft project for scouts to make their own arrows, <a
+            href="AOLArrowCraftInstructions.html"
+            title="View craft project instructions for scouts to build their own arrows"
+            aria-label="View craft project instructions for scouts to build their own arrows">click here</a>.
+    </div>
+
+    <div id="print-container" style="display: none;"></div>
+
+    <div class="panel">
+        <div class="panel-title">1. Scout Data Import & Arrow Maker</div>
+        <div class="instructions">
+            <strong>Input Format & Camp Handling:</strong>
+            <ul>
+                <li>Download your rank report from Scoutbook as CSV/TSV with columns for ranks and up to two camp
+                    attendance entries.</li>
+                <li><strong>Values Required:</strong> A cell marked with <code>"Awarded"</code>, <code>"Yes"</code>,
+                    <code>"Y"</code>, <code>"X"</code>, or starting with <code>"Approved"</code> will be recognized as
+                    completed.
+                </li>
+                <li><strong>Column Naming:</strong> Headers are matched case-insensitively. <em>Arrow of Light</em>
+                    matches either <code>Arrow of Light</code> or <code>AOL</code>.</li>
+                <li><strong>Camp Placement:</strong> If two camps are provided, the earlier year is placed between
+                    <strong>Bear and Webelos</strong>; the later year is placed between <strong>Webelos and
+                        AOL</strong>.
+                </li>
+                <li><strong>Try an Example:</strong> Don't have your own file handy? <a href="#"
+                        id="load-example-data-link"
+                        title="Populate the input box below with sample Scoutbook rank and camp data"
+                        aria-label="Click here to use example data"><span aria-hidden="true">📋</span> Click here to use
+                        example data</a>.</li>
+            </ul>
+            <i>Note: Scout data used in this tool is used only locally by this page and does not transmit to a
+                server.</i>
+        </div>
+        <textarea id="data-input" aria-label="Paste tab-delimited or CSV scout rank data"
+            placeholder="Paste tab-delimited or CSV data here..."></textarea>
+        <div id="import-status" class="status-msg" role="status" aria-live="polite"></div>
+
+        <div class="scout-selector">
+            <label for="scout-dropdown" style="font-weight: bold;">Select Scout:</label>
+            <select id="scout-dropdown">
+                <option value="">-- Paste data above to load scouts --</option>
+            </select>
+        </div>
+
+        <div class="controls" id="checkbox-container"></div>
+
+        <div class="svg-container" style="margin-top: 20px;">
+            <div id="arrow-preview-host"></div>
+        </div>
+
+        <div class="action-bar" style="margin-bottom: 0;">
+            <button id="export-png-btn" class="export-btn"
+                title="Download the current scout's arrow graphic as a PNG image" aria-label="Export Arrow PNG"><span
+                    aria-hidden="true">⬇</span> Export Arrow PNG</button>
+            <button id="export-svg-btn" class="export-btn svg-btn"
+                title="Download the current scout's arrow graphic as a scalable SVG file"
+                aria-label="Export Arrow SVG"><span aria-hidden="true">⬇</span> Export Arrow SVG</button>
+            <button id="export-all-arrows-pdf" class="export-btn purple-btn"
+                title="Print or save all loaded scouts' arrows as 11-inch landscape strip sheets"
+                aria-label="Bulk Print All Arrows as PDF Strips"><span aria-hidden="true">🖨️</span> Bulk Print All
+                Arrows (PDF
+                Strips)</button>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-title">2. Certificate Details</div>
+        <div class="form-grid">
+            <div class="input-group">
+                <label for="cert-scout-name">Scout Name</label>
+                <input type="text" id="cert-scout-name" placeholder="Name">
+            </div>
+            <div class="input-group">
+                <label for="cert-pack">Pack Number</label>
+                <input type="text" id="cert-pack" value="1234">
+            </div>
+            <div class="input-group">
+                <label for="cert-date">Date</label>
+                <input type="text" id="cert-date" value="24 February 2026">
+            </div>
+            <div class="input-group">
+                <label for="cert-dl1">Den Leader 1 Name</label>
+                <input type="text" id="cert-dl1" value="Mr. Den Leader">
+            </div>
+            <div class="input-group">
+                <label for="cert-dl2">Den Leader 2 Name (Optional)</label>
+                <input type="text" id="cert-dl2" value="Ms. Den Leader">
+            </div>
+            <div class="input-group">
+                <label for="cert-cm">Cubmaster Name</label>
+                <input type="text" id="cert-cm" value="Mr. Cub Master">
+            </div>
+            <div class="input-group">
+                <label for="cert-dc">Den Chief Name (Optional)</label>
+                <input type="text" id="cert-dc" value="Dennis Chief">
+            </div>
+        </div>
+        <div class="action-bar" style="margin-bottom: 0;">
+            <button id="export-cert-pdf" class="export-btn pdf-btn"
+                title="Print or save the currently previewed certificate as a PDF"
+                aria-label="Print Single Certificate as PDF"><span aria-hidden="true">🖨️</span> Print Single Cert
+                (PDF)</button>
+            <button id="export-all-pdf" class="export-btn pdf-btn" style="background-color:#d81b60;"
+                title="Print or save certificates for all loaded scouts in the roster"
+                aria-label="Bulk Print All Certificates as PDF"><span aria-hidden="true">🖨️</span> Bulk Print All
+                Certs (PDF)</button>
+            <button id="export-cert-png" class="export-btn"
+                title="Download the currently previewed certificate as a high-resolution PNG image"
+                aria-label="Export Certificate PNG"><span aria-hidden="true">⬇</span> Export Cert PNG</button>
+            <button id="export-cert-svg" class="export-btn svg-btn"
+                title="Download the currently previewed certificate as a scalable SVG file"
+                aria-label="Export Certificate SVG"><span aria-hidden="true">⬇</span> Export Cert SVG</button>
+        </div>
+    </div>
+
+    <div class="svg-container cert-container">
+        <div id="cert-preview-host"></div>
+    </div>
+
+    <script>
+        const currentYear = new Date().getFullYear();
+        const campYear1 = currentYear - 2;
+        const campYear2 = currentYear - 1;
+        let svgInstanceCounter = 0;
+
+        function debugLog(context, message, data = null) {
+            const timestamp = new Date().toISOString();
+            if (data !== null && data !== undefined) {
+                console.debug(`[AOLCertMaker][${timestamp}][${context}] ${message}`, data);
+            } else {
+                console.debug(`[AOLCertMaker][${timestamp}][${context}] ${message}`);
+            }
+        }
+
+        function escapeXML(value) {
+            return String(value ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        let bandsData = [
+            { id: 'AOL', color: '#9E9E9E', label: 'AOL', textFill: '#000', colHeader: 'Arrow of Light' },
+            { id: 'Camp2', color: '#C799CE', label: `Camp ${campYear2}`, textFill: '#000', colHeader: `Camp ${campYear2}` },
+            { id: 'Webelos', color: '#4CAF50', label: 'Webelos', textFill: '#000', colHeader: 'Webelos' },
+            { id: 'Camp1', color: '#C799CE', label: `Camp ${campYear1}`, textFill: '#000', colHeader: `Camp ${campYear1}` },
+            { id: 'Bear', color: '#00BCD4', label: 'Bear', textFill: '#000', colHeader: 'Bear' },
+            { id: 'Wolf', color: '#F44336', label: 'Wolf', textFill: '#000', colHeader: 'Wolf' },
+            { id: 'Tiger', color: '#FF9800', label: 'Tiger', textFill: '#000', colHeader: 'Tiger' },
+            { id: 'Lion', color: '#FFEB3B', label: 'Lion', textFill: '#000', colHeader: 'Lion' },
+            { id: 'Bobcat', color: '#212121', label: 'Bobcat', textFill: '#FFF', colHeader: 'Bobcat' }
+        ];
+
+        const startX = 162;
+        const width = 36;
+        const gap = 24;
+        const yPos = 69;
+        const height = 12;
+
+        const checkboxes = {};
+        let parsedScouts = [];
+
+        function resetDefaultCampBands() {
+            const camp1Band = bandsData.find(b => b.id === 'Camp1');
+            const camp2Band = bandsData.find(b => b.id === 'Camp2');
+            if (camp1Band) {
+                camp1Band.colHeader = `Camp ${campYear1}`;
+                camp1Band.label = `Camp ${campYear1}`;
+            }
+            if (camp2Band) {
+                camp2Band.colHeader = `Camp ${campYear2}`;
+                camp2Band.label = `Camp ${campYear2}`;
+            }
+        }
+
+        function buildCheckboxUI() {
+            const container = document.getElementById('checkbox-container');
+            container.innerHTML = '';
+            bandsData.forEach(band => {
+                const label = document.createElement('label');
+                label.className = 'control-group';
+
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.checked = true;
+
+                checkbox.addEventListener('change', () => {
+                    debugLog('UI', `Toggled band checkbox: ${band.id} (${band.label}) -> ${checkbox.checked}`);
+                    renderActivePreview();
+                });
+
+                label.appendChild(checkbox);
+                label.appendChild(document.createTextNode(band.label));
+                container.appendChild(label);
+
+                checkboxes[band.id] = checkbox;
+            });
+        }
+        buildCheckboxUI();
+
+        function buildArrowSVGString(visibleBandsMap, options = {}) {
+            const uid = ++svgInstanceCounter;
+            const svgIdAttr = options.id ? `id="${escapeXML(options.id)}"` : '';
+            const classAttr = options.className ? `class="${escapeXML(options.className)}"` : '';
+            const posAttrs = (options.x !== undefined && options.y !== undefined)
+                ? `x="${options.x}" y="${options.y}"`
+                : '';
+
+            let bandsMarkup = '';
+            let textMarkup = '';
+
+            bandsData.forEach((band, index) => {
+                const currentX = startX + (index * (width + gap));
+                const centerTextX = currentX + (width / 2);
+                const isVisible = visibleBandsMap[band.id] !== false;
+                const display = isVisible ? 'block' : 'none';
+
+                bandsMarkup += `<rect x="${currentX}" y="${yPos}" width="${width}" height="${height}" fill="${band.color}" style="display:${display};" />`;
+                textMarkup += `<text x="${centerTextX}" y="${yPos + (height / 2) + 2.5}" font-family="sans-serif" font-size="6.5" font-weight="bold" letter-spacing="-0.2px" fill="${band.textFill}" text-anchor="middle" style="display:${display};">${escapeXML(band.label)}</text>`;
+            });
+
+            return `
+            <svg ${svgIdAttr} ${classAttr} ${posAttrs} width="800" height="150" viewBox="0 0 800 150" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="wood-${uid}" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#DEB887"/><stop offset="50%" stop-color="#F5DEB3"/><stop offset="100%" stop-color="#C19A6B"/>
+                    </linearGradient>
+                    <linearGradient id="shading-${uid}" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="white" stop-opacity="0.5" /><stop offset="30%" stop-color="white" stop-opacity="0.0" />
+                        <stop offset="70%" stop-color="black" stop-opacity="0.0" /><stop offset="100%" stop-color="black" stop-opacity="0.5" />
+                    </linearGradient>
+                    <linearGradient id="feather-top-${uid}" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#4e342e"/><stop offset="15%" stop-color="#8d6e63"/><stop offset="30%" stop-color="#d7ccc8"/>
+                        <stop offset="45%" stop-color="#8d6e63"/><stop offset="60%" stop-color="#4e342e"/><stop offset="75%" stop-color="#d7ccc8"/><stop offset="100%" stop-color="#4e342e"/>
+                    </linearGradient>
+                    <linearGradient id="feather-bottom-${uid}" x1="0" y1="1" x2="1" y2="0">
+                        <stop offset="0%" stop-color="#4e342e"/><stop offset="15%" stop-color="#8d6e63"/><stop offset="30%" stop-color="#d7ccc8"/>
+                        <stop offset="45%" stop-color="#8d6e63"/><stop offset="60%" stop-color="#4e342e"/><stop offset="75%" stop-color="#d7ccc8"/><stop offset="100%" stop-color="#4e342e"/>
+                    </linearGradient>
+                    <linearGradient id="stone-${uid}" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#555555"/><stop offset="50%" stop-color="#333333"/><stop offset="100%" stop-color="#111111"/>
+                    </linearGradient>
+                </defs>
+                <g><path d="M 45 75 Q 25 90 35 95 Q 80 90 130 75 Z" fill="url(#feather-bottom-${uid})" stroke="#3e2723" stroke-width="1.5" stroke-linejoin="round"/></g>
+                <path d="M 30 69 L 700 69 L 700 81 L 30 81 L 30 77 L 38 75 L 30 73 Z" fill="url(#wood-${uid})" />
+                <g>${bandsMarkup}</g>
+                <g>${textMarkup}</g>
+                <path d="M 30 69 L 700 69 L 700 81 L 30 81 L 30 77 L 38 75 L 30 73 Z" fill="url(#shading-${uid})" stroke="#8B5A2B" stroke-width="1" pointer-events="none" />
+                <g>
+                    <path d="M 45 75 Q 25 60 35 55 Q 80 60 130 75 Z" fill="url(#feather-top-${uid})" stroke="#3e2723" stroke-width="1.5" stroke-linejoin="round"/>
+                    <rect x="35" y="68" width="8" height="14" rx="2" fill="#D4A373" stroke="#8B5A2B" stroke-width="1"/>
+                    <line x1="37" y1="68" x2="37" y2="82" stroke="#8B5A2B" stroke-width="1"/>
+                    <line x1="41" y1="68" x2="41" y2="82" stroke="#8B5A2B" stroke-width="1"/>
+                    <rect x="125" y="68" width="8" height="14" rx="2" fill="#D4A373" stroke="#8B5A2B" stroke-width="1"/>
+                    <line x1="127" y1="68" x2="127" y2="82" stroke="#8B5A2B" stroke-width="1"/>
+                    <line x1="131" y1="68" x2="131" y2="82" stroke="#8B5A2B" stroke-width="1"/>
+                </g>
+                <g>
+                    <path d="M 695 75 L 715 58 L 775 75 L 715 92 Z" fill="url(#stone-${uid})" stroke="#1a1a1a" stroke-width="1.5" stroke-linejoin="round"/>
+                    <rect x="690" y="68" width="10" height="14" rx="2" fill="#D4A373" stroke="#8B5A2B" stroke-width="1"/>
+                    <line x1="693" y1="68" x2="693" y2="82" stroke="#8B5A2B" stroke-width="1"/>
+                    <line x1="697" y1="68" x2="697" y2="82" stroke="#8B5A2B" stroke-width="1"/>
+                    <path d="M 700 69 L 718 75 L 700 81" fill="none" stroke="#D4A373" stroke-width="2.5" stroke-linejoin="round"/>
+                    <path d="M 700 69 L 718 75 L 700 81" fill="none" stroke="#8B5A2B" stroke-width="0.75" stroke-linejoin="round"/>
+                </g>
+            </svg>`;
+        }
+
+        function buildCertificateSVGString(scoutName, visibleBandsMap, options = {}) {
+            const svgIdAttr = options.id ? `id="${escapeXML(options.id)}"` : '';
+            const pack = escapeXML(document.getElementById('cert-pack').value || '____');
+            const date = escapeXML(document.getElementById('cert-date').value || '____');
+            const dl1 = document.getElementById('cert-dl1').value.trim();
+            const dl2 = document.getElementById('cert-dl2').value.trim();
+            const cm = document.getElementById('cert-cm').value.trim();
+            const dc = document.getElementById('cert-dc').value.trim();
+            const safeScoutName = escapeXML(scoutName);
+
+            const hasRow2Left = !!dl2;
+            const hasRow2Right = !!dc;
+
+            const sigLayout = [];
+            if (dl1) sigLayout.push({ name: dl1, title: 'Den Leader', x: 288, lineY: hasRow2Left ? 660 : 695 });
+            if (dl2) sigLayout.push({ name: dl2, title: 'Den Leader', x: 288, lineY: 720 });
+            if (cm) sigLayout.push({ name: cm, title: 'Cubmaster', x: 768, lineY: hasRow2Right ? 660 : 695 });
+            if (dc) sigLayout.push({ name: dc, title: 'Den Chief', x: 768, lineY: 720 });
+
+            let sigsMarkup = '';
+            sigLayout.forEach(sig => {
+                const lineHalfWidth = 120;
+                sigsMarkup += `
+                    <line x1="${sig.x - lineHalfWidth}" y1="${sig.lineY}" x2="${sig.x + lineHalfWidth}" y2="${sig.lineY}" stroke="#003F87" stroke-width="1" />
+                    <text x="${sig.x}" y="${sig.lineY - 5}" font-family="'Palace Script MT', cursive" font-size="32pt" fill="#000000" text-anchor="middle">${escapeXML(sig.name)}</text>
+                    <text x="${sig.x}" y="${sig.lineY + 18}" font-family="'Franklin Gothic Heavy', 'Franklin Gothic', sans-serif" font-size="12pt" fill="#003F87" text-anchor="middle">${escapeXML(sig.title)}</text>
+                `;
+            });
+
+            const arrowSVG = buildArrowSVGString(visibleBandsMap, { x: 128, y: 420 });
+
+            return `
+            <svg ${svgIdAttr} width="100%" viewBox="0 0 1056 816" style="background: white; max-width: 1056px; height: auto;" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <style type="text/css">
+                        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&amp;family=Cormorant+SC:wght@600;700&amp;display=swap');
+                        .cert-scout-name-text {
+                            font-family: 'Cinzel', 'Cormorant SC', 'Copperplate Gothic Bold', 'Copperplate', serif;
+                            font-weight: 700;
+                            font-variant: small-caps;
+                            font-feature-settings: 'smcp' 1;
+                            letter-spacing: 1.5px;
+                        }
+                    </style>
+                </defs>
+                <rect width="1056" height="816" fill="#ffffff" />
+                <rect x="16" y="16" width="1024" height="784" fill="white" stroke="#003F87" stroke-width="24"/>
+                <rect x="36" y="36" width="984" height="744" fill="none" stroke="#F5D130" stroke-width="3"/>
+
+                <svg x="361" y="60" width="334" height="141" viewBox="0 0 334 141" version="1.1" xmlns="http://www.w3.org/2000/svg" style="fill-rule:evenodd; clip-rule:evenodd; stroke-linecap:round; stroke-linejoin:round; stroke-miterlimit:1.5;">
+                    <path d="M334,4.335l0,131.205c0,2.392 -1.942,4.335 -4.335,4.335l-325.33,0c-2.392,0 -4.335,-1.942 -4.335,-4.335l0,-131.205c0,-2.392 1.942,-4.335 4.335,-4.335l325.33,0c2.392,0 4.335,1.942 4.335,4.335Z" style="fill:#004a8f;"/>
+                    <path d="M323.717,17.49l0,106.02c0,5.226 -4.243,9.469 -9.469,9.469l-292.68,0c-5.226,0 -9.469,-4.243 -9.469,-9.469l0,-106.02c0,-5.226 4.243,-9.469 9.469,-9.469l292.68,0c5.226,0 9.469,4.243 9.469,9.469Z" style="fill:#aeac71;"/>
+                    <path d="M59.626,57.164l12.092,-9.161l40.308,33.346l6.229,-5.848l-42.507,-47.285l20.887,0.366l33.346,43.606l9.161,-2.565l-17.589,-40.308l16.856,-0.366l12.825,38.476l9.894,0l-1.099,-38.842l17.97,-0.733l-4.045,39.209l9.527,0.733l12.092,-38.842l17.589,0l-16.49,40.674l8.062,2.931l33.346,-43.606l21.986,-0.366l-43.606,46.918l6.596,5.482l41.041,-31.514l12.092,8.062l-49.102,32.246l-5.863,0.733l-4.031,-2.565l-7.329,-2.931l-12.825,-4.764l-8.856,-2.292l-10.184,-0.188l-11,-0.75l-10.523,0.188l-10.319,1.313l-10.694,3.189l-10.131,3.94l-10.319,4.69l-6.004,0.563l-49.384,-33.739Z" style="fill:#ffe500;stroke:#000;stroke-width:1px;"/>
+                    <path d="M90.674,90.902l173.691,0l-7.695,-15.402l47.637,20.227l-46.904,20.154l6.596,-14.291l-172.591,-1.099l-11.726,13.192l-10.627,0l10.26,-11.726l-7.329,-1.099l-12.359,11.726l-9.993,0.733l9.993,-12.092l-5.963,-0.366l-10.627,11.726l-11.726,0l9.894,-11.726l-6.962,-0.366l-1.099,-9.589l8.794,0l-10.993,-12.031l10.817,-0.361l12.007,12.391l5.857,0l-10.172,-12.204l10.172,-0.563l11.779,12.767l7.317,0l-11.069,-12.391l10.882,0l12.139,12.391Z" style="fill:#ffe500;stroke:#000;stroke-width:1px;"/>
+                </svg>
+
+                <text x="528" y="245" font-family="'Franklin Gothic Heavy', 'Franklin Gothic', sans-serif" font-weight="900" font-size="32pt" fill="#003F87" text-anchor="middle">Arrow of Light</text>
+                <text x="528" y="275" font-family="'Franklin Gothic Heavy', 'Franklin Gothic', sans-serif" font-weight="900" font-size="12pt" font-style="italic" fill="#003F87" text-anchor="middle">is presented to</text>
+
+                <text x="528" y="335" class="cert-scout-name-text" font-family="'Cinzel', 'Cormorant SC', 'Copperplate Gothic Bold', 'Copperplate', serif" font-weight="700" font-variant="small-caps" font-size="28pt" letter-spacing="1.5px" fill="#000000" text-anchor="middle">${safeScoutName}</text>
+                <line x1="250" y1="345" x2="806" y2="345" stroke="#ccc" stroke-width="1"/>
+                
+                <text x="528" y="385" font-family="'Times New Roman', serif" font-size="16pt" fill="#000000" text-anchor="middle">Pack ${pack}</text>
+                
+                ${arrowSVG}
+
+                <text x="528" y="535" font-family="'Franklin Gothic Heavy', 'Franklin Gothic', sans-serif" font-weight="900" font-style="italic" font-size="12pt" fill="#003F87" text-anchor="middle">at the successful culmination of your Cub Scouting journey on</text>
+                <text x="528" y="570" font-family="'Times New Roman', serif" font-size="16pt" fill="#000000" text-anchor="middle">${date}</text>
+
+                <svg x="466" y="595" width="124" height="124" viewBox="0 0 652 652" xmlns="http://www.w3.org/2000/svg">
+                    <style type="text/css">
+                        .cub-st0{fill:#002E6D;} .cub-st1{fill:#FFD600;} .cub-st2{fill:#FFFFFF;}
+                    </style>
+                    <polygon class="cub-st0" points="75.8,326.2 325.8,576.1 575.8,326.2 325.8,76.1 "/>
+                    <polygon class="cub-st1" points="98.6,326.1 325.8,553.3 553.1,326.1 325.8,98.8 "/>
+                    <path class="cub-st2" d="M246.6,236c0,0-0.1-2.6-1.9,1.9c-1.8,4.5-21.9,33-3.4,55.7c0,0,16.4,19,47.5,33.8c0,0,4.8,6.3,6.9,11.6 c0,0,2.1,7.9,8.4,14.8c0,0,8.4,4.8,21.1,4.8h-1.6c0,0,15.3-0.5,22.7-6.9c0,0,6.9-10.6,7.4-25.9c0,0,25.9-16.4,42.2-22.2 c0,0,15.3-6.9,18.5-17.4l-5.3-14.8l2.6-8.4l-9-18.5l-13.2-16.4l3.7-13.7c0,0,5.8-20.6,4.2-32.2c0,0,4.2-11.6-6.9-2.1 c-11.1,9.5-1.6,1.1-1.6,1.1s-33.2,15.3-36.4,23.7c0,0-6.9-10-25.9-7.4l-3.7,3.2l-8.4-3.7l-15.3,6.9c0,0-17.4-11.1-27.4-20.1 c0,0-14.3-9-16.4-3.2c-2.1,5.8-7.4,15.3,2.1,32.7v10c0,0-9,1.6-11.1,11.1"/>
+                    <path class="cub-st0" d="M313.7,194.2c3.2,1.3,5.7-0.6,8.2,3.8c8.9-5.1,18.4-0.6,26.6,0c14.6-3.2,27.9-18.4,45-19.6l-36.7,25.3 c3.8,2.5,5.1,8.9,10.8,8.9l0.6-7c7.6,3.8,4.4-7.6,11.4-4.4c-1.3-1.3-3.8-0.6-5.7-1.9c0-2.5,3.8-0.6,5.7-1.3 c4.4-6.3,11.4-8.2,14.6-15.8c1.9,13.9-5.1,26.6-11.4,38.6l1.9,1.3c7.6-9.5,12-21.5,13.3-34.2c1.9,10.1-5.7,20.3-1.9,27.2v11.4 c-1.3,0.6-3.2-0.6-3.8,1.3c2.5,2.5,3.8,5.1,8.2,7.6c-3.2,5.7,10.1,5.7,5.7,12.7c4.4,5.1,3.2,10.1,7.6,16.5l-3.8,5.7 c12-0.6-1.3,12,8.9,14.6c-5.1,0.6,0.6,7-5.7,6.3c-4.4,4.4-1.3,16.5-12.7,13.3c-0.6,1.3-1.3,1.9-0.6,3.8c-3.8-3.2-5.7,1.9-9.5,1.3 c0.6,2.5,1.9,5.1,1.9,7.6c-2.5-1.9-7.6-3.2-7.6,0.6c-7,5.7-19,4.4-19,13.3c-1.3-3.2-5.1-2.5-7-1.9c-9.5,7-6.3,22.8-17.7,26.6 c-4.4,8.9-13.9,5.7-23.4,6.3c-12-4.4-20.9-14.6-23.4-26.6c-4.4,1.9-7.6-3.8-11.4-3.2v-4.4c-2.5,0.6-5.1-1.9-8.2-0.6 c0.6-1.3,1.9-1.9,1.3-3.2c-1.3-3.2-3.8-0.6-5.1,0l-1.3,0.6c-3.2-1.3,0.6-3.2-0.6-5.7c-5.7,1.3-9.5-10.1-15.2-3.2 c0-1.3,0.6-3.2-0.6-3.8h-1.3c3.8-5.7-4.4-5.1-6.3-8.2h-4.4c0.6-2.5-1.9-3.8-0.6-6.3c-3.8,0-5.7-5.7-7.6-10.1 c-3.8-2.5,1.3-8.9-5.1-10.1c-1.3-10.1,8.9-13.9,6.3-24.7c10.8-0.6,3.8-9.5,10.8-14.6c4.4,4.4-1.3,12.7-3.8,18.4 c-1.3-0.6-2.5,0.6-3.2,1.9c1.3,7.6-6.3,21.5,0.6,25.3c1.3-1.3,3.8-3.2,6.3-3.8c-1.3,4.4,5.7,10.1,0.6,14.6c7,3.2,7.6,13.9,16.5,10.8 v3.8c4.4,4.4,10.8-5.7,11.4,3.2c4.4,1.3,11.4,1.9,17.1,0.6c-1.3,8.2,10.1,1.3,5.7,10.8l3.8,1.3c-1.9,4.4-5.1,9.5-2.5,14.6 c1.9,25.3,28.5,11.4,43.7,15.2c8.2-3.2,9.5-12,10.8-19.6c0.6-3.8-2.5-6.3-4.4-9.5c-8.9,7.6-3.2,26.6-19.6,26.6 c-8.9-0.6-16.5-5.7-17.7-15.2c-0.6-3.2,3.2-1.3,4.4-2.5c3.2-1.3,4.4,1.9,5.7,3.8c5.1,0,10.1-0.6,13.9-2.5c-3.2-3.8-8.9-7-15.2-4.4 c3.2-12.7-10.1-31.7,5.7-41.2c-1.3-3.2-0.6-8.2-0.6-10.8h1.3c-1.3,4.4,2.5,7.6,4.4,8.2c3.2,0,1.3-3.8,1.9-5.7c6.3-0.6,4.4,7,8.2,9.5 c-2.5-10.1,2.5-22.2,14.6-23.4c10.1,3.2,21.5,0.6,31,2.5c-1.9,2.5-5.1,7-8.2,4.4c-3.2-1.3-3.8,1.9-5.7,3.2c3.2,3.8-2.5,5.7,0,9.5 c-7,12-26,9.5-22.8,26.6c10.8-2.5,29.1-0.6,36.7-12c3.8-1.9,8.2-2.5,12,0l-0.6-5.7c2.5,1.9,5.1,0,8.2,0c3.2-2.5-2.5-3.8-1.3-6.3 l7.6,3.2c0-7.6,3.2-17.7-5.7-22.8c1.3-1.3,1.9-2.5,1.9-3.8c-5.7-1.3-10.8,5.7-16.5-0.6c-8.2-6.3-14.6,4.4-22.8-2.5 c-5.1,3.8-3.8-3.8-8.9-3.8c-5.7-5.7-15.2,2.5-17.7-6.3h-1.9c1.9-7.6-7-9.5-3.8-17.1c-8.9-4.4,0.6-10.1-4.4-15.8c0,0,5.1,3.2,5.7,0 c-1.3-7-10.1-3.8-11.4-11.4l-3.2,4.4c-1.9-1.3,2.5-14.6-6.3-14.6l-10.1,0.6c6.3,12-11.4,15.8-16.5,22.8c5.1,1.3,10.1-4.4,15.8-4.4 c1.3-3.8,7-10.1,10.8-14.6c-4.4,7.6,10.1,12,1.3,19c-8.9,1.3-1.3,13.3-7,17.1c3.8,5.1-8.2,11.4,3.2,12.7c-7-8.2,9.5-9.5,3.2-18.4 l5.7-12.7c2.5,5.1,5.7,12,6.3,17.1c0.6,5.7,8.2,7,2.5,12.7c5.1,0.6,1.9,11.4,8.9,7.6c2.5,5.7-7.6,10.8-3.8,17.7 c-7-3.2-15.2,3.2-22.8,1.3c1.3-7-2.5-10.8-3.8-16.5c-5.7-2.5-13.3-5.1-19.6-1.3c-4.4,3.8-10.1,7.6-13.9,12c9.5,0,21.5-3.2,30.4,2.5 c1.9,7,7,12.7,1.9,19.6c1.9-14.6-17.7-7.6-20.3-19c-2.5-5.1-5.7,0-8.9,0.6c-1.3,1.3-3.2,2.5-2.5,4.4c7,13.3,28.5,7,30.4,22.2 l1.9-1.3c2.5,1.9,1.3,5.1,1.9,7.6l-5.1-0.6c0,1.3,0.6,3.2-0.6,4.4l1.3,1.3l1.9-3.8c3.2,3.8,0.6,8.2,1.3,13.3 c-9.5,0-6.3-14.6-12-20.9c-4.4-4.4-12-2.5-15.2-7.6c-0.6,1.3-1.9,0.6-3.2,0.6c-1.3,0-1.3-1.9,0-1.9l2.5-2.5 c-1.3-1.9-3.8-3.2-5.7-1.3v3.2c-12-0.6-0.6-22.8-16.5-13.9l-7-3.8c8.9-1.3-1.3-8.9,6.3-10.8c-0.6-1.9-2.5-3.8-3.8-5.1 c-1.3,0.6-1.9,1.3-3.2,1.3c0-1.3,3.8-3.2,0.6-5.1c2.5-1.9,7-13.9,14.6-6.3l1.9-1.9c-0.6-3.2-4.4-1.3-6.3-1.9c0-4.4,5.7-1.9,3.8-7.6 c1.9,0.6,2.5,2.5,5.1,2.5c-3.8-7,7-5.7,5.1-10.8c7,3.8,6.3-3.2,11.4-5.1l-0.6-1.9c-13.3,2.5-25.3,12-34.8,19.6 c-5.7-1.9,2.5-13.3-6.3-5.7c1.3-6.3,2.5-10.8,7.6-15.2c-1.9-12-5.7-27.2,0-38.6c-3.2,14.6-1.3,32.9,10.1,42.4 c-5.1-12-12-27.2-6.3-41.8c6.3,4.4,8.2,10.1,11.4,16.5c5.1,1.3,8.2,3.2,8.9,8.2l-2.5,2.5c6.3,0,8.2,9.5,15.8,3.8l3.2-5.1 c-8.9-12-22.8-25.3-35.5-30.4C280.8,175.2,291.6,211.3,313.7,194.2z"/>
+                </svg>
+
+                <g>${sigsMarkup}</g>
+            </svg>`;
+        }
+
+        // Clean split supporting quotes & TSV/CSV
+        function parseDelimitedText(text) {
+            const rawLines = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
+            const lines = rawLines.filter(l => l.trim().length > 0);
+            if (lines.length === 0) return { headers: [], rows: [] };
+
+            const delimiter = (lines[0].indexOf('\t') !== -1) ? '\t' : ',';
+            debugLog('Parser', `Detected delimiter: ${delimiter === '\t' ? 'TAB (TSV)' : 'COMMA (CSV)'}`, { lineCount: lines.length });
+
+            function parseLine(line) {
+                const values = [];
+                let cur = '';
+                let inQuotes = false;
+                for (let i = 0; i < line.length; i++) {
+                    const c = line[i];
+                    if (c === '"') {
+                        if (inQuotes && line[i + 1] === '"') {
+                            cur += '"';
+                            i++;
+                        } else {
+                            inQuotes = !inQuotes;
+                        }
+                    } else if (c === delimiter && !inQuotes) {
+                        values.push(cur.trim().replace(/^["']|["']$/g, ''));
+                        cur = '';
+                    } else {
+                        cur += c;
+                    }
+                }
+                values.push(cur.trim().replace(/^["']|["']$/g, ''));
+                return values;
+            }
+
+            const parsed = lines.map(parseLine);
+            return {
+                headers: parsed[0],
+                rows: parsed.slice(1)
+            };
+        }
+
+        function handleDataParsing() {
+            const raw = document.getElementById('data-input').value;
+            const status = document.getElementById('import-status');
+            if (!raw || !raw.trim()) {
+                parsedScouts = [];
+                resetDefaultCampBands();
+                buildCheckboxUI();
+                populateDropdown();
+                status.textContent = '';
+                debugLog('Parser', 'Input cleared; reset roster and camp band defaults.');
+                return;
+            }
+
+            const { headers, rows } = parseDelimitedText(raw);
+            if (rows.length === 0) {
+                parsedScouts = [];
+                populateDropdown();
+                status.textContent = 'No data rows found.';
+                debugLog('Parser', 'Header line found, but no scout rows present.', { headers });
+                return;
+            }
+
+            // Identify camp columns dynamically
+            const campCols = headers.filter(h => h && h.toLowerCase().includes('camp'));
+            campCols.sort((a, b) => {
+                const numA = (a.match(/\d+/) || [null])[0];
+                const numB = (b.match(/\d+/) || [null])[0];
+                if (numA && numB) return parseInt(numA, 10) - parseInt(numB, 10);
+                return 0;
+            });
+
+            const camp1Band = bandsData.find(b => b.id === 'Camp1');
+            const camp2Band = bandsData.find(b => b.id === 'Camp2');
+
+            if (camp1Band) {
+                const name1 = campCols.length > 0 ? campCols[0] : `Camp ${campYear1}`;
+                camp1Band.colHeader = name1;
+                camp1Band.label = name1;
+            }
+            if (camp2Band) {
+                const name2 = campCols.length > 1 ? campCols[1] : (campCols.length === 1 ? "" : `Camp ${campYear2}`);
+                camp2Band.colHeader = name2;
+                camp2Band.label = name2 || `Camp ${campYear2}`;
+            }
+            debugLog('Parser', 'Mapped camp columns to arrow bands', { campCols, camp1Band, camp2Band });
+            buildCheckboxUI();
+
+            parsedScouts = rows.map(r => {
+                const scoutObj = { Name: r[0] || '' };
+                for (let i = 1; i < headers.length; i++) {
+                    if (headers[i]) {
+                        scoutObj[headers[i].trim()] = r[i] || '';
+                    }
+                }
+                return scoutObj;
+            }).filter(s => s.Name.trim().length > 0);
+
+            status.textContent = `✓ Successfully loaded ${parsedScouts.length} scouts.`;
+            debugLog('Parser', `Successfully parsed ${parsedScouts.length} scouts`, parsedScouts);
+            populateDropdown();
+        }
+
+        function populateDropdown() {
+            const dropdown = document.getElementById('scout-dropdown');
+            dropdown.innerHTML = '<option value="">-- Select a Scout --</option>';
+            parsedScouts.forEach((s, idx) => {
+                const opt = document.createElement('option');
+                opt.value = idx;
+                opt.textContent = s.Name;
+                dropdown.appendChild(opt);
+            });
+            if (parsedScouts.length > 0) {
+                dropdown.value = 0;
+                selectScoutByIndex(0);
+            } else {
+                renderActivePreview();
+            }
+        }
+
+        function isSuccess(value) {
+            if (!value) return false;
+            const v = String(value).trim().toLowerCase();
+            if (v === 'y' || v === 'x' || v === 'yes' || v === 'true' || v === '1') return true;
+            return v.includes('awarded') || v.includes('yes') || v.startsWith('approved');
+        }
+
+        function getScoutColumnValue(scout, targetHeader) {
+            if (!targetHeader) return '';
+            const tLower = targetHeader.trim().toLowerCase();
+            for (let k in scout) {
+                const kLower = k.trim().toLowerCase();
+                if (kLower === tLower) return scout[k];
+                if ((tLower === 'arrow of light' || tLower === 'aol') && (kLower === 'arrow of light' || kLower === 'aol')) {
+                    return scout[k];
+                }
+            }
+            return '';
+        }
+
+        function getScoutBandsMap(scout) {
+            const map = {};
+            bandsData.forEach(band => {
+                const cellVal = getScoutColumnValue(scout, band.colHeader);
+                map[band.id] = (Object.keys(scout).length === 1) ? true : isSuccess(cellVal);
+            });
+            return map;
+        }
+
+        function getActiveCheckboxBandsMap() {
+            const map = {};
+            bandsData.forEach(band => {
+                map[band.id] = checkboxes[band.id] ? checkboxes[band.id].checked : true;
+            });
+            return map;
+        }
+
+        function selectScoutByIndex(index) {
+            if (index === "" || !parsedScouts[index]) {
+                document.getElementById('cert-scout-name').value = "";
+                bandsData.forEach(b => { if (checkboxes[b.id]) checkboxes[b.id].checked = true; });
+                debugLog('Selection', 'Cleared active scout selection; all bands enabled.');
+            } else {
+                const scout = parsedScouts[index];
+                document.getElementById('cert-scout-name').value = scout.Name || "";
+                const map = getScoutBandsMap(scout);
+                bandsData.forEach(b => {
+                    if (checkboxes[b.id]) checkboxes[b.id].checked = map[b.id];
+                });
+                debugLog('Selection', `Selected scout [${index}]: ${scout.Name}`, map);
+            }
+            renderActivePreview();
+        }
+
+        function renderActivePreview() {
+            const scoutName = document.getElementById('cert-scout-name').value || '[Scout Name]';
+            const visibleMap = getActiveCheckboxBandsMap();
+
+            document.getElementById('arrow-preview-host').innerHTML = buildArrowSVGString(visibleMap, { id: 'arrow-svg' });
+            document.getElementById('cert-preview-host').innerHTML = buildCertificateSVGString(scoutName, visibleMap, { id: 'cert-svg' });
+        }
+
+        // Event listeners for data entry
+        const dataInputElem = document.getElementById('data-input');
+        dataInputElem.addEventListener('input', handleDataParsing);
+        dataInputElem.addEventListener('change', handleDataParsing);
+
+        const EXAMPLE_SCOUT_DATA = [
+            "Column1\tExtra Column like BSA Member #\tLion\tBobcat\tTiger\tWolf\tBear\tWebelos\tArrow of Light\tCamp 2025\tCamp 2026",
+            "Scout Doe\tXXXXXXX\tAwarded\tAwarded\tAwarded\tAwarded\tAwarded\tAwarded\tAwarded\t\tYes",
+            "Jane Scout\tXXXXXXX\tNot Started\tAwarded\tNot Started\tAwarded\tAwarded\tAwarded\tAwarded\tYes\tYes",
+            "John Scout\tXXXXXXX\tAwarded\tAwarded\tAwarded\tAwarded\tAwarded\tAwarded\tAwarded\t\tYes",
+            "Janet Scout\tXXXXXXX\tNot Started\tNot Started\tNot Started\tNot Started\tNot Started\tNot Started\tAwarded\t\t",
+            "Jack Doe\tXXXXXXX\tAwarded\tAwarded\tAwarded\tAwarded\tAwarded\tAwarded\tAwarded\tYes\tYes"
+        ].join("\n");
+
+        document.getElementById('load-example-data-link').addEventListener('click', (e) => {
+            e.preventDefault();
+            dataInputElem.value = EXAMPLE_SCOUT_DATA;
+            debugLog('UI', 'Loaded example scout data into input box.');
+            handleDataParsing();
+        });
+
+        // Form listeners
+        ['cert-scout-name', 'cert-pack', 'cert-date', 'cert-dl1', 'cert-dl2', 'cert-cm', 'cert-dc'].forEach(id => {
+            document.getElementById(id).addEventListener('input', renderActivePreview);
+        });
+
+        document.getElementById('scout-dropdown').addEventListener('change', function () {
+            selectScoutByIndex(this.value);
+        });
+
+        // Initialize preview
+        renderActivePreview();
+
+        function getFileName(suffix) {
+            let scoutName = document.getElementById('cert-scout-name').value.trim();
+            const packNum = (document.getElementById('cert-pack').value || '1313').trim();
+            if (!scoutName || scoutName === '[Scout Name]') scoutName = `pack-${packNum}`;
+            return scoutName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') + '-' + suffix;
+        }
+
+        function exportSVG(svgId, suffix) {
+            const svgElement = document.getElementById(svgId);
+            const serializer = new XMLSerializer();
+            let svgString = '<?xml version="1.0" standalone="no"?>\r\n' + serializer.serializeToString(svgElement);
+            const blob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
+            const url = URL.createObjectURL(blob);
+            const fileName = getFileName(suffix) + ".svg";
+            debugLog('Export', `Exporting SVG (${svgId}) as ${fileName}`);
+            const downloadLink = document.createElement("a");
+            downloadLink.href = url;
+            downloadLink.download = fileName;
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+            URL.revokeObjectURL(url);
+        }
+
+        function exportPNG(svgId, suffix, scaleMultiplier = 1) {
+            const svgElement = document.getElementById(svgId);
+            const clonedSvg = svgElement.cloneNode(true);
+            const width = svgElement.viewBox && svgElement.viewBox.baseVal && svgElement.viewBox.baseVal.width
+                ? svgElement.viewBox.baseVal.width
+                : parseInt(svgElement.getAttribute("width"), 10);
+            const height = svgElement.viewBox && svgElement.viewBox.baseVal && svgElement.viewBox.baseVal.height
+                ? svgElement.viewBox.baseVal.height
+                : parseInt(svgElement.getAttribute("height"), 10);
+
+            clonedSvg.setAttribute("width", width);
+            clonedSvg.setAttribute("height", height);
+
+            const serializer = new XMLSerializer();
+            let svgString = serializer.serializeToString(clonedSvg);
+            const blob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
+            const url = URL.createObjectURL(blob);
+
+            const canvas = document.createElement("canvas");
+            canvas.width = width * scaleMultiplier;
+            canvas.height = height * scaleMultiplier;
+
+            const ctx = canvas.getContext("2d");
+            const fileName = getFileName(suffix) + ".png";
+            debugLog('Export', `Rendering PNG (${svgId}) at ${canvas.width}x${canvas.height}px -> ${fileName}`);
+
+            const img = new Image();
+            img.onload = function () {
+                ctx.scale(scaleMultiplier, scaleMultiplier);
+                ctx.drawImage(img, 0, 0);
+                URL.revokeObjectURL(url);
+                const pngUrl = canvas.toDataURL("image/png");
+                const link = document.createElement("a");
+                link.href = pngUrl;
+                link.download = fileName;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            };
+            img.onerror = function (err) {
+                URL.revokeObjectURL(url);
+                console.error('[AOLCertMaker][Export] Failed to rasterize SVG to PNG:', err);
+            };
+            img.src = url;
+        }
+
+        document.getElementById('export-png-btn').addEventListener('click', function () { exportPNG('arrow-svg', 'arrow'); });
+        document.getElementById('export-svg-btn').addEventListener('click', function () { exportSVG('arrow-svg', 'arrow'); });
+        document.getElementById('export-cert-png').addEventListener('click', () => exportPNG('cert-svg', 'certificate', 3));
+        document.getElementById('export-cert-svg').addEventListener('click', () => exportSVG('cert-svg', 'certificate'));
+
+        function triggerPrintJob(jobDescription) {
+            const printContainer = document.getElementById('print-container');
+            debugLog('Print', `Starting print job: ${jobDescription}`, {
+                pages: printContainer.children.length
+            });
+            const cleanup = () => {
+                printContainer.innerHTML = '';
+                window.removeEventListener('afterprint', cleanup);
+                debugLog('Print', `Cleaned up print container after: ${jobDescription}`);
+            };
+            window.addEventListener('afterprint', cleanup);
+            window.print();
+        }
+
+        // Single Certificate Print / PDF
+        document.getElementById('export-cert-pdf').addEventListener('click', () => {
+            const printContainer = document.getElementById('print-container');
+            printContainer.innerHTML = '';
+
+            const pageDiv = document.createElement('div');
+            pageDiv.className = 'cert-print-page single-page';
+
+            const scoutName = document.getElementById('cert-scout-name').value || '[Scout Name]';
+            pageDiv.innerHTML = buildCertificateSVGString(scoutName, getActiveCheckboxBandsMap());
+            printContainer.appendChild(pageDiv);
+
+            triggerPrintJob(`Single Certificate (${scoutName})`);
+        });
+
+        // Bulk Print All Certificates
+        document.getElementById('export-all-pdf').addEventListener('click', () => {
+            if (!parsedScouts || parsedScouts.length === 0) {
+                alert("Please paste your scout data to load the roster first.");
+                return;
+            }
+
+            const printContainer = document.getElementById('print-container');
+            printContainer.innerHTML = '';
+
+            parsedScouts.forEach(scout => {
+                const scoutBandsMap = getScoutBandsMap(scout);
+                const pageDiv = document.createElement('div');
+                pageDiv.className = 'cert-print-page';
+                pageDiv.innerHTML = buildCertificateSVGString(scout.Name, scoutBandsMap);
+                printContainer.appendChild(pageDiv);
+            });
+
+            triggerPrintJob(`Bulk Certificates (${parsedScouts.length} scouts)`);
+        });
+
+        // Bulk Print All Custom Arrows on Strips
+        document.getElementById('export-all-arrows-pdf').addEventListener('click', () => {
+            if (!parsedScouts || parsedScouts.length === 0) {
+                alert("Please paste your scout data to load the roster first.");
+                return;
+            }
+
+            const printContainer = document.getElementById('print-container');
+            printContainer.innerHTML = '';
+
+            const STRIPS_PER_PAGE = 6;
+            let currentPageDiv = null;
+
+            parsedScouts.forEach((scout, index) => {
+                if (index % STRIPS_PER_PAGE === 0) {
+                    currentPageDiv = document.createElement('div');
+                    currentPageDiv.className = 'arrow-sheet-page';
+                    printContainer.appendChild(currentPageDiv);
+                }
+
+                const scoutBandsMap = getScoutBandsMap(scout);
+
+                const stripDiv = document.createElement('div');
+                stripDiv.className = 'arrow-strip';
+
+                const labelDiv = document.createElement('div');
+                labelDiv.className = 'arrow-strip-label';
+                labelDiv.textContent = scout.Name;
+                stripDiv.appendChild(labelDiv);
+
+                const arrowContainer = document.createElement('div');
+                arrowContainer.className = 'arrow-strip-svg';
+                arrowContainer.innerHTML = buildArrowSVGString(scoutBandsMap);
+                stripDiv.appendChild(arrowContainer);
+
+                currentPageDiv.appendChild(stripDiv);
+            });
+
+            triggerPrintJob(`Bulk Arrow Strips (${parsedScouts.length} scouts across ${printContainer.children.length} pages, max 11in width)`);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<!--
+  Scout Web Tools - Arrow of Light Certificate & Arrow Customizer
+  Repository: https://github.com/jrcloyd/scout-web-tools
+  License: MIT (SPDX-License-Identifier: MIT)
+-->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Build Your Arrow of Light Career Arrow</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --scout-blue: #003F87;
+            --scout-blue-dark: #002a5c;
+            --scout-gold: #F5D130;
+            --bg-light: #f4f6fa;
+            --card-bg: #ffffff;
+            --text-main: #222222;
+            --text-muted: #555555;
+            --border-color: #dce2ec;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.5;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            box-sizing: border-box;
+        }
+
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: var(--scout-blue);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+            transition: background-color 0.2s;
+        }
+
+        .nav-btn:hover {
+            background-color: var(--scout-blue-dark);
+        }
+
+        .nav-btn.print-btn {
+            background-color: #2e7d32;
+        }
+
+        .nav-btn.print-btn:hover {
+            background-color: #1b5e20;
+        }
+
+        .hero-header {
+            background: linear-gradient(135deg, #003F87 0%, #002654 100%);
+            color: white;
+            padding: 22px 26px;
+            border-radius: 10px;
+            border-bottom: 4px solid var(--scout-gold);
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+            text-align: center;
+        }
+
+        .hero-header h1 {
+            font-family: 'Cinzel', serif;
+            font-variant: small-caps;
+            font-size: 26px;
+            margin: 0 0 6px 0;
+            letter-spacing: 1px;
+            color: #ffffff;
+        }
+
+        .hero-header p {
+            margin: 0;
+            font-size: 14.5px;
+            color: #e3f2fd;
+        }
+
+        .panel {
+            background: var(--card-bg);
+            padding: 22px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            border: 1px solid var(--border-color);
+        }
+
+        .panel-title {
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--scout-blue);
+            margin: 0 0 14px 0;
+            border-bottom: 2px solid var(--scout-gold);
+            padding-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .leader-note {
+            background-color: #eef6ff;
+            border-left: 5px solid var(--scout-blue);
+            padding: 12px 16px;
+            border-radius: 0 6px 6px 0;
+            margin-bottom: 16px;
+            font-size: 13.5px;
+        }
+
+        .safety-box {
+            background-color: #fff8e1;
+            border: 1px solid #ffe082;
+            border-left: 5px solid #f57c00;
+            padding: 10px 14px;
+            border-radius: 0 6px 6px 0;
+            margin: 8px 0 0 0;
+            font-size: 13px;
+        }
+
+        .safety-box strong {
+            color: #e65100;
+        }
+
+        .tip-box {
+            background-color: #e8f5e9;
+            border-left: 5px solid #2e7d32;
+            padding: 10px 14px;
+            border-radius: 0 6px 6px 0;
+            margin: 8px 0 0 0;
+            font-size: 13px;
+        }
+
+        .supplies-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        @media (max-width: 768px) {
+            .supplies-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .supply-card {
+            background: #f9fbfd;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 12px 14px;
+        }
+
+        .supply-card h3 {
+            margin: 0 0 8px 0;
+            font-size: 14.5px;
+            color: var(--scout-blue);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .supply-card ul {
+            margin: 0;
+            padding-left: 18px;
+            font-size: 13px;
+        }
+
+        .supply-card li {
+            margin-bottom: 5px;
+        }
+
+        .supply-card a {
+            color: #0d47a1;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+        .supply-card a:hover {
+            color: #1565c0;
+        }
+
+        /* Interactive Blueprint & Band Planner */
+        .planner-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 14px;
+            padding: 10px 12px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .band-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            background: white;
+            font-size: 12.5px;
+            font-weight: 600;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .swatch {
+            width: 13px;
+            height: 13px;
+            border-radius: 3px;
+            border: 1px solid rgba(0, 0, 0, 0.35);
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .blueprint-container {
+            background: #ffffff;
+            border: 1.5px solid #cfd8dc;
+            border-radius: 8px;
+            padding: 10px 12px;
+            overflow-x: auto;
+            text-align: center;
+            margin-bottom: 14px;
+        }
+
+        .color-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            margin-top: 8px;
+        }
+
+        .color-table th,
+        .color-table td {
+            border: 1px solid var(--border-color);
+            padding: 6px 10px;
+            text-align: left;
+        }
+
+        .color-table th {
+            background-color: #f0f4f8;
+            color: var(--scout-blue);
+            font-weight: 700;
+        }
+
+        .step-card {
+            display: flex;
+            gap: 14px;
+            margin-bottom: 14px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid #eaeef4;
+        }
+
+        .step-card:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .step-badge {
+            flex-shrink: 0;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background-color: var(--scout-blue);
+            color: var(--scout-gold);
+            font-weight: 800;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-content h3 {
+            margin: 0 0 4px 0;
+            font-size: 16px;
+            color: var(--scout-blue);
+        }
+
+        .step-content p,
+        .step-content ul,
+        .step-content ol {
+            margin: 0 0 6px 0;
+            font-size: 13.5px;
+        }
+
+        .step-content ol,
+        .step-content ul {
+            padding-left: 20px;
+        }
+
+        .step-content li {
+            margin-bottom: 4px;
+        }
+
+        .measurement-pill {
+            display: inline-block;
+            background: #e3f2fd;
+            color: #0d47a1;
+            font-weight: 700;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-size: 12.5px;
+        }
+
+        /* Print Layout: Clean 2-Page 8.5x11" Design (Page 1: Leaders, Page 2: Scouts) */
+        @media print {
+            @page {
+                size: 8.5in 11in;
+                margin: 0.35in 0.4in;
+            }
+
+            html,
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+                width: 100%;
+                font-size: 11.5px;
+                line-height: 1.38;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .container {
+                max-width: 100%;
+                width: 100%;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .print-page-leader {
+                page-break-after: always;
+                break-after: page;
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+
+            .print-page-scout {
+                page-break-after: avoid;
+                break-after: avoid;
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+
+            .hero-header {
+                padding: 12px 16px;
+                margin-bottom: 12px;
+                border-radius: 6px;
+                box-shadow: none;
+            }
+
+            .hero-header h1 {
+                font-size: 20px;
+                margin-bottom: 3px;
+            }
+
+            .hero-header p {
+                font-size: 12px;
+            }
+
+            .panel {
+                box-shadow: none;
+                padding: 14px 16px;
+                margin-bottom: 10px;
+                border: 1px solid #bbb;
+            }
+
+            .panel-title {
+                font-size: 15.5px;
+                margin-bottom: 10px;
+                padding-bottom: 4px;
+            }
+
+            .leader-note {
+                padding: 8px 12px;
+                margin-bottom: 10px;
+                font-size: 11.5px;
+            }
+
+            .supplies-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+                margin-bottom: 12px;
+            }
+
+            .supply-card {
+                padding: 8px 10px;
+            }
+
+            .supply-card h3 {
+                font-size: 12.5px;
+                margin-bottom: 5px;
+            }
+
+            .supply-card ul {
+                font-size: 11px;
+                padding-left: 15px;
+            }
+
+            .supply-card li {
+                margin-bottom: 3px;
+            }
+
+            .color-table {
+                font-size: 11.5px;
+                margin-top: 6px;
+            }
+
+            .color-table th,
+            .color-table td {
+                padding: 4px 8px;
+            }
+
+            .blueprint-container {
+                padding: 6px 8px;
+                margin-bottom: 10px;
+                overflow: hidden;
+            }
+
+            .step-card {
+                gap: 10px;
+                margin-bottom: 8px;
+                padding-bottom: 8px;
+            }
+
+            .step-badge {
+                width: 24px;
+                height: 24px;
+                font-size: 12.5px;
+            }
+
+            .step-content h3 {
+                font-size: 13px;
+                margin-bottom: 2px;
+            }
+
+            .step-content p,
+            .step-content ul,
+            .step-content ol {
+                font-size: 11.2px;
+                margin-bottom: 3px;
+            }
+
+            .step-content li {
+                margin-bottom: 2px;
+            }
+
+            .safety-box,
+            .tip-box {
+                padding: 5px 10px;
+                margin-top: 4px;
+                font-size: 10.8px;
+            }
+
+            .measurement-pill {
+                font-size: 10.8px;
+                padding: 0 4px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="top-nav no-print" aria-label="Page Navigation">
+            <a href="AOLCertificateMaker.html" class="nav-btn"
+                title="Return to the Pack Arrow and Certificate Customizer"
+                aria-label="Return to the Pack Arrow and Certificate Customizer">
+                <span aria-hidden="true">⬅</span> Back to Arrow &amp; Certificate Customizer
+            </a>
+            <button type="button" class="nav-btn print-btn" onclick="window.print()"
+                title="Print this 2-page craft guide (Page 1 for Leaders, Page 2 for Scouts)"
+                aria-label="Print Craft Instructions">
+                <span aria-hidden="true">🖨️</span> Print 2-Page Craft Guide
+            </button>
+        </nav>
+
+        <!-- PAGE 1: DEN LEADER SUPPLY & COLOR REFERENCE -->
+        <div class="print-page-leader">
+            <header class="hero-header">
+                <h1><span aria-hidden="true">🏹</span> Arrow of Light Career Arrow Craft Guide</h1>
+                <p>Page 1: Den Leader Supply Guide &amp; Rank Band Reference (24-Inch Wooden Arrow)</p>
+            </header>
+
+            <section class="panel" aria-labelledby="supplies-heading">
+                <h2 id="supplies-heading" class="panel-title">
+                    <span aria-hidden="true">🧰</span> Den Leader Supply Checklist &amp; Prep Guide
+                </h2>
+                <div class="leader-note">
+                    <strong>Note for Den Leaders:</strong> The Den Leader is in charge of gathering supplies before the
+                    meeting.
+                    Each arrow uses a 36-inch wooden dowel cut to <strong>24 inches</strong>. You can either pre-cut the
+                    dowels
+                    to 24 inches ahead of time or let the Scouts measure and cut their own dowels with a handsaw under
+                    adult supervision.
+                    Each rank or camp band is <strong>1.5 inches wide</strong> with a <strong>1-inch space</strong> in
+                    between.
+                    If a Scout did not earn a particular rank or camp, that 1.5-inch band spot is left unpainted as
+                    blank wood.
+                </div>
+
+                <div class="supplies-grid">
+                    <div class="supply-card">
+                        <h3><span aria-hidden="true">🪵</span> Per Scout Materials</h3>
+                        <ul>
+                            <li>
+                                <strong>1 Wooden Dowel (1/4" × 36", cut to 24")</strong> (<a
+                                    href="https://www.homedepot.com/p/Waddell-Birch-Round-Dowel-36-in-x-0-25-in-Sanded-and-Ready-for-Finishing-Versatile-Wooden-Rod-for-DIY-Home-Projects-6604U/203706866"
+                                    target="_blank" rel="noopener noreferrer"
+                                    title="Open Home Depot product page for Waddell 36 in. x 0.25 in. Birch Round Dowel"
+                                    aria-label="Birch Round Dowel 36 inch by 0.25 inch at Home Depot">Home Depot
+                                </a>)
+                            </li>
+                            <li>
+                                <strong>1 Stone Arrowhead:</strong>
+                                Stone Arrowheads (<a href="https://www.amazon.com/dp/B0BL3R6D9Q" target="_blank"
+                                    rel="noopener noreferrer" title="Open Amazon product page for Stone Arrowheads"
+                                    aria-label="Stone Arrowheads on Amazon">Amazon</a>)
+
+                            </li>
+                            <li>
+                                <strong>3 Feathers (Fletching):</strong>
+
+                                Arrow Feathers (<a href="https://www.amazon.com/dp/B0F137H7YJ" target="_blank"
+                                    rel="noopener noreferrer" title="Open Amazon product page for Arrow Feathers"
+                                    aria-label="Arrow Feathers on Amazon">Amazon</a>)
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="supply-card">
+                        <h3><span aria-hidden="true">🎨</span> Paint &amp; Taping Supplies</h3>
+                        <ul>
+                            <li><strong>1-Inch Masking Tape:</strong> Using 1-inch wide tape makes spacing the 1-inch
+                                gaps between the 1.5-inch paint bands simple and consistent.</li>
+                            <li><strong>Acrylic Craft Paints:</strong> Silver/Gray, Purple/Lavender, Green, Light Blue,
+                                Red, Orange, Yellow, and Black.</li>
+                            <li><strong>Paint Brushes:</strong> Small foam brushes or craft brushes, paper plates, water
+                                cups, and paper towels.</li>
+                            <li><strong>Drying Holder:</strong> A cardboard box with holes poked in the top (or foam
+                                block) to hold arrows upright while drying.</li>
+                        </ul>
+                    </div>
+
+                    <div class="supply-card">
+                        <h3><span aria-hidden="true">🔨</span> Tools &amp; Assembly</h3>
+                        <ul>
+                            <li><strong>Ruler or Tape Measure &amp; Pencil:</strong> For marking the 24-inch dowel
+                                length and 1.5-inch paint bands.</li>
+                            <li><strong>Handsaw &amp; Fine Sandpaper:</strong> Needed if Scouts cut their own dowels to
+                                24 inches.</li>
+                            <li><strong>Hot Glue Gun &amp; Glue Sticks:</strong> For attaching the stone arrowhead and 3
+                                feathers.</li>
+                            <li><strong>Optional Twine:</strong> Brown twine or embroidery floss to wrap around the
+                                arrowhead and feather ends.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 style="margin: 12px 0 6px 0; font-size: 15px; color: var(--scout-blue);">
+                    24-Inch Arrow Band Positions &amp; Color Key (From Feather End to Arrowhead)
+                </h3>
+                <table class="color-table" aria-label="Cub Scout Rank and Camp Band Color Guide">
+                    <thead>
+                        <tr>
+                            <th>Band Slot</th>
+                            <th>Rank / Event</th>
+                            <th>Paint Color</th>
+                            <th>Band Width</th>
+                            <th>Distance from Feather End</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Slot 1 (Closest to Feathers)</td>
+                            <td><strong>Arrow of Light (AOL)</strong></td>
+                            <td><span class="swatch" style="background:#9E9E9E;"></span> Silver / Gray</td>
+                            <td>1.5 inches</td>
+                            <td>1.5" to 3.0"</td>
+                        </tr>
+                        <tr>
+                            <td>Slot 2</td>
+                            <td><strong>Summer Camp (Year 2)</strong></td>
+                            <td><span class="swatch" style="background:#C799CE;"></span> Purple / Lavender</td>
+                            <td>1.5 inches</td>
+                            <td>4.0" to 5.5"</td>
+                        </tr>
+                        <tr>
+                            <td>Slot 3</td>
+                            <td><strong>Webelos</strong></td>
+                            <td><span class="swatch" style="background:#4CAF50;"></span> Green</td>
+                            <td>1.5 inches</td>
+                            <td>6.5" to 8.0"</td>
+                        </tr>
+                        <tr>
+                            <td>Slot 4</td>
+                            <td><strong>Summer Camp (Year 1)</strong></td>
+                            <td><span class="swatch" style="background:#C799CE;"></span> Purple / Lavender</td>
+                            <td>1.5 inches</td>
+                            <td>9.0" to 10.5"</td>
+                        </tr>
+                        <tr>
+                            <td>Slot 5</td>
+                            <td><strong>Bear</strong></td>
+                            <td><span class="swatch" style="background:#00BCD4;"></span> Light Blue / Aqua</td>
+                            <td>1.5 inches</td>
+                            <td>11.5" to 13.0"</td>
+                        </tr>
+                        <tr>
+                            <td>Slot 6</td>
+                            <td><strong>Wolf</strong></td>
+                            <td><span class="swatch" style="background:#F44336;"></span> Red</td>
+                            <td>1.5 inches</td>
+                            <td>14.0" to 15.5"</td>
+                        </tr>
+                        <tr>
+                            <td>Slot 7</td>
+                            <td><strong>Tiger</strong></td>
+                            <td><span class="swatch" style="background:#FF9800;"></span> Orange</td>
+                            <td>1.5 inches</td>
+                            <td>16.5" to 18.0"</td>
+                        </tr>
+                        <tr>
+                            <td>Slot 8</td>
+                            <td><strong>Lion</strong></td>
+                            <td><span class="swatch" style="background:#FFEB3B;"></span> Yellow</td>
+                            <td>1.5 inches</td>
+                            <td>19.0" to 20.5"</td>
+                        </tr>
+                        <tr>
+                            <td>Slot 9 (Closest to Arrowhead)</td>
+                            <td><strong>Bobcat</strong></td>
+                            <td><span class="swatch" style="background:#212121;"></span> Black</td>
+                            <td>1.5 inches</td>
+                            <td>21.5" to 23.0"</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+
+        <!-- PAGE 2: SCOUT BUILD INSTRUCTIONS -->
+        <div class="print-page-scout">
+            <section class="panel" aria-labelledby="steps-heading">
+                <h2 id="steps-heading" class="panel-title">
+                    <span aria-hidden="true">🛠️</span> Scout Build Instructions: Making Your 24-Inch Arrow
+                </h2>
+
+                <p class="no-print" style="margin: 0 0 10px 0; font-size: 13.5px;">
+                    Check or uncheck the boxes below to preview your arrow. Unchecked bands stay blank wood space on the
+                    24-inch shaft.
+                </p>
+
+                <div class="planner-controls no-print" id="band-toggles" role="group"
+                    aria-label="Select earned ranks and camps"></div>
+
+                <div class="blueprint-container">
+                    <div id="blueprint-svg-host"></div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-badge" aria-hidden="true">1</div>
+                    <div class="step-content">
+                        <h3>Measure, Cut &amp; Sand Your Dowel to 24 Inches</h3>
+                        <p>
+                            <em>If your Den Leader already pre-cut your dowel to 24 inches, start at step 4 below.</em>
+                        </p>
+                        <ol>
+                            <li>Lay your 36-inch wooden dowel flat on the table and use a ruler or tape measure to
+                                measure <span class="measurement-pill">24 inches</span> from one end.</li>
+                            <li>Make a pencil mark at 24 inches. Hold the dowel firmly in a miter box or clamp on a
+                                workbench, and cut along your mark with a handsaw using steady strokes.</li>
+                            <li>Lightly sand both ends and the shaft with sandpaper until smooth.</li>
+                            <li>Write your initials lightly in pencil on the very tip of the dowel where the arrowhead
+                                will cover it so you can identify your arrow.</li>
+                        </ol>
+                        <div class="safety-box">
+                            <strong><span aria-hidden="true">⚠️</span> Saw Safety:</strong> Keep your holding hand well
+                            away from the saw blade and only cut with an adult leader supervising.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-badge" aria-hidden="true">2</div>
+                    <div class="step-content">
+                        <h3>Tape Off Your Bands (1.5" Paint Width &amp; 1" Masking Tape Spacing)</h3>
+                        <p>
+                            Each band slot is <span class="measurement-pill">1.5 inches</span> wide with a <span
+                                class="measurement-pill">1-inch</span> unpainted gap between slots. Because the masking
+                            tape is <strong>1 inch wide</strong>, wrapping one strip of tape creates the exact 1-inch
+                            space between bands.
+                        </p>
+                        <ol>
+                            <li>Starting from the <strong>back end</strong> (feather end) of your 24-inch dowel, measure
+                                <span class="measurement-pill">1.5 inches</span> in. Wrap a piece of 1-inch masking tape
+                                just behind the 1.5-inch mark so the back edge of Slot 1 is protected.
+                            </li>
+                            <li>From the front edge of that tape, measure <span class="measurement-pill">1.5
+                                    inches</span> down the shaft and make a small pencil mark. This 1.5-inch open wood
+                                section is <strong>Slot 1 (Arrow of Light)</strong>.</li>
+                            <li>Starting right on your pencil mark, wrap a single strip of <strong>1-inch masking
+                                    tape</strong> around the dowel. This 1-inch tape strip forms the 1-inch gap before
+                                Slot 2.</li>
+                            <li>Continue down the arrow (<span class="measurement-pill">1.5" open wood</span> then <span
+                                    class="measurement-pill">1" tape</span>) for all 9 slots. After Slot 9 (Bobcat),
+                                wrap a final piece of tape 1 inch from the front tip.</li>
+                            <li>Press the edges of every tape strip firmly with your thumbnail so paint cannot seep
+                                underneath.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-badge" aria-hidden="true">3</div>
+                    <div class="step-content">
+                        <h3>Paint Your Earned Bands &amp; Leave Unchecked Bands Blank</h3>
+                        <ol>
+                            <li>Look at your personal arrow strip or the color table on Page 1 to see which ranks and
+                                camps you earned.</li>
+                            <li>If you did <strong>not</strong> earn a rank or camp slot, leave that 1.5-inch slot
+                                unpainted as natural blank wood.</li>
+                            <li>For each band you earned, brush on two thin, even coats of the matching paint color
+                                while rotating the dowel.</li>
+                            <li>Place your arrow upright in the drying holder for 15–20 minutes until dry, then gently
+                                peel off all the masking tape.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-badge" aria-hidden="true">4</div>
+                    <div class="step-content">
+                        <h3>Hot Glue Your 3 Feathers (At the End or with Overlap)</h3>
+                        <ol>
+                            <li>Your 3 feathers attach at the back end of the arrow (near the Silver Arrow of Light
+                                band), spaced evenly around the shaft like the letter <strong>"Y"</strong> (120 degrees
+                                apart).</li>
+                            <li>Feathers can be glued either on the unpainted back end of the dowel or with some overlap
+                                across the first band section.</li>
+                            <li>Apply a thin line of hot glue along the bottom spine of the first feather and press it
+                                straight onto the shaft for 10 seconds. Rotate the dowel one-third of a turn for the
+                                second feather, and another one-third turn for the third feather.</li>
+                        </ol>
+                        <div class="safety-box">
+                            <strong><span aria-hidden="true">🔥</span> Hot Glue Safety:</strong> Melted glue and the
+                            glue gun nozzle are very hot. Use a craft stick or pencil eraser to press down feather edges
+                            rather than bare fingers.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-badge" aria-hidden="true">5</div>
+                    <div class="step-content">
+                        <h3>Hot Glue Your Stone Arrowhead</h3>
+                        <ol>
+                            <li>At the front tip of the dowel (near the Black Bobcat band), apply a dab of hot glue to
+                                the end of the wood shaft (or into a shallow notch if pre-slotted by a leader).</li>
+                            <li>Press the stone arrowhead onto the tip so it points straight ahead and hold it steady
+                                for 20–30 seconds until the glue cools. Optional: wrap twine around the base of the
+                                arrowhead and feather ends with a drop of glue.</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        function debugLog(context, message, data = null) {
+            const timestamp = new Date().toISOString();
+            if (data !== null && data !== undefined) {
+                console.debug(`[AOLArrowCraftGuide][${timestamp}][${context}] ${message}`, data);
+            } else {
+                console.debug(`[AOLArrowCraftGuide][${timestamp}][${context}] ${message}`);
+            }
+        }
+
+        const blueprintBands = [
+            { id: 'AOL', label: 'AOL', color: '#9E9E9E', textFill: '#000', checked: true },
+            { id: 'Camp2', label: 'Camp 2', color: '#C799CE', textFill: '#000', checked: true },
+            { id: 'Webelos', label: 'Webelos', color: '#4CAF50', textFill: '#000', checked: true },
+            { id: 'Camp1', label: 'Camp 1', color: '#C799CE', textFill: '#000', checked: true },
+            { id: 'Bear', label: 'Bear', color: '#00BCD4', textFill: '#000', checked: true },
+            { id: 'Wolf', label: 'Wolf', color: '#F44336', textFill: '#000', checked: true },
+            { id: 'Tiger', label: 'Tiger', color: '#FF9800', textFill: '#000', checked: true },
+            { id: 'Lion', label: 'Lion', color: '#FFEB3B', textFill: '#000', checked: true },
+            { id: 'Bobcat', label: 'Bobcat', color: '#212121', textFill: '#FFF', checked: true }
+        ];
+
+        function initPlannerControls() {
+            const container = document.getElementById('band-toggles');
+            container.innerHTML = '';
+            blueprintBands.forEach(band => {
+                const label = document.createElement('label');
+                label.className = 'band-toggle';
+                label.title = `Toggle ${band.label} band (1.5 inches paint, 1 inch spacing)`;
+
+                const input = document.createElement('input');
+                input.type = 'checkbox';
+                input.checked = band.checked;
+                input.addEventListener('change', () => {
+                    band.checked = input.checked;
+                    debugLog('Planner', `Toggled ${band.id} -> ${band.checked}`);
+                    renderBlueprint();
+                });
+
+                const swatch = document.createElement('span');
+                swatch.className = 'swatch';
+                swatch.style.backgroundColor = band.color;
+
+                label.appendChild(input);
+                label.appendChild(swatch);
+                label.appendChild(document.createTextNode(band.label));
+                container.appendChild(label);
+            });
+            renderBlueprint();
+        }
+
+        function renderBlueprint() {
+            // Fixed 24-inch arrow dimensions:
+            // 1.5" back feather zone + 9 slots of 1.5" (13.5") + 8 gaps of 1.0" (8.0") + 1.0" front tip zone = 24.0"
+            const dowelLengthIn = 24;
+            const bandIn = 1.5;
+            const gapIn = 1.0;
+            const featherMarginIn = 1.5;
+
+            const pxPerInch = 30;
+            const dowelStartX = 30;
+            const dowelWidthPx = dowelLengthIn * pxPerInch; // 720px
+            const svgWidth = 825;
+            const yShaft = 82;
+            const shaftHeight = 16;
+
+            let bandsSvg = '';
+            const startBandX = dowelStartX + (featherMarginIn * pxPerInch);
+
+            blueprintBands.forEach((band, idx) => {
+                const bandW = bandIn * pxPerInch; // 45px
+                const gapW = gapIn * pxPerInch;   // 30px
+                const x = startBandX + idx * (bandW + gapW);
+
+                if (band.checked) {
+                    bandsSvg += `
+                        <rect x="${x}" y="${yShaft}" width="${bandW}" height="${shaftHeight}" fill="${band.color}" stroke="#555" stroke-width="0.6"/>
+                        <text x="${x + bandW / 2}" y="${yShaft + 11}" font-family="sans-serif" font-size="8" font-weight="bold" fill="${band.textFill}" text-anchor="middle">${band.label}</text>
+                        <text x="${x + bandW / 2}" y="${yShaft - 7}" font-family="sans-serif" font-size="8.5" fill="#003F87" font-weight="bold" text-anchor="middle">1.5"</text>
+                    `;
+                }
+
+                if (idx < blueprintBands.length - 1) {
+                    const tapeX = x + bandW;
+                    bandsSvg += `
+                        <rect x="${tapeX}" y="${yShaft - 2}" width="${gapW}" height="${shaftHeight + 4}" fill="rgba(255, 248, 196, 0.75)" stroke="#c8b968" stroke-dasharray="2,2" />
+                        <text x="${tapeX + gapW / 2}" y="${yShaft + shaftHeight + 14}" font-family="sans-serif" font-size="8" font-weight="bold" fill="#555" text-anchor="middle">1"</text>
+                    `;
+                }
+            });
+
+            // Feathers at the back end (can be glued at the end or overlapping the first band)
+            const featherStartX = dowelStartX + 6;
+            const featherEndX = dowelStartX + (2.4 * pxPerInch);
+
+            const svgMarkup = `
+                <svg width="100%" height="158" viewBox="0 0 ${svgWidth} 158" style="max-width: ${svgWidth}px; height: auto;" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="24 inch wooden arrow measurement diagram with 1.5 inch bands and 1 inch gaps">
+                    <defs>
+                        <linearGradient id="bp-wood" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#DEB887"/>
+                            <stop offset="50%" stop-color="#F5DEB3"/>
+                            <stop offset="100%" stop-color="#C19A6B"/>
+                        </linearGradient>
+                    </defs>
+
+                    <!-- Overall 24-inch dowel dimension line -->
+                    <line x1="${dowelStartX}" y1="22" x2="${dowelStartX + dowelWidthPx}" y2="22" stroke="#003F87" stroke-width="1.5" />
+                    <line x1="${dowelStartX}" y1="15" x2="${dowelStartX}" y2="29" stroke="#003F87" stroke-width="2" />
+                    <line x1="${dowelStartX + dowelWidthPx}" y1="15" x2="${dowelStartX + dowelWidthPx}" y2="29" stroke="#003F87" stroke-width="2" />
+                    <rect x="${dowelStartX + (dowelWidthPx / 2) - 95}" y="10" width="190" height="20" fill="white" />
+                    <text x="${dowelStartX + (dowelWidthPx / 2)}" y="25" font-family="sans-serif" font-size="12" font-weight="bold" fill="#003F87" text-anchor="middle">24" Wooden Dowel (1/4")</text>
+
+                    <!-- Feathers (glued at end or with overlap) -->
+                    <path d="M ${featherStartX} ${yShaft} Q ${featherStartX - 12} ${yShaft - 22} ${featherStartX} ${yShaft - 27} Q ${featherStartX + 36} ${yShaft - 22} ${featherEndX} ${yShaft} Z" fill="#8d6e63" fill-opacity="0.9" stroke="#3e2723" stroke-width="1.5"/>
+                    <path d="M ${featherStartX} ${yShaft + shaftHeight} Q ${featherStartX - 12} ${yShaft + shaftHeight + 22} ${featherStartX} ${yShaft + shaftHeight + 27} Q ${featherStartX + 36} ${yShaft + shaftHeight + 22} ${featherEndX} ${yShaft + shaftHeight} Z" fill="#8d6e63" fill-opacity="0.9" stroke="#3e2723" stroke-width="1.5"/>
+                    <text x="${(featherStartX + featherEndX) / 2 + 6}" y="${yShaft + shaftHeight + 42}" font-family="sans-serif" font-size="8.5" font-weight="bold" fill="#4e342e" text-anchor="middle">3 Feathers (End or Overlap)</text>
+
+                    <!-- 24-Inch Wooden Dowel Shaft -->
+                    <rect x="${dowelStartX}" y="${yShaft}" width="${dowelWidthPx}" height="${shaftHeight}" fill="url(#bp-wood)" stroke="#8B5A2B" stroke-width="1.2" rx="2"/>
+
+                    <!-- 1.5" Painted Bands (or Blank Slots) & 1" Masking Tape Gaps -->
+                    ${bandsSvg}
+
+                    <!-- Stone Arrowhead -->
+                    <path d="M ${dowelStartX + dowelWidthPx - 5} ${yShaft + shaftHeight / 2} L ${dowelStartX + dowelWidthPx + 14} ${yShaft - 10} L ${dowelStartX + dowelWidthPx + 60} ${yShaft + shaftHeight / 2} L ${dowelStartX + dowelWidthPx + 14} ${yShaft + shaftHeight + 10} Z" fill="#444" stroke="#111" stroke-width="1.5" stroke-linejoin="round"/>
+                    <text x="${dowelStartX + dowelWidthPx + 24}" y="${yShaft + shaftHeight + 26}" font-family="sans-serif" font-size="8.5" font-weight="bold" fill="#222" text-anchor="middle">Stone Arrowhead</text>
+                </svg>
+            `;
+
+            document.getElementById('blueprint-svg-host').innerHTML = svgMarkup;
+            debugLog('Planner', 'Rendered 24-inch blueprint', {
+                activeCount: blueprintBands.filter(b => b.checked).length,
+                dowelLengthIn,
+                bandIn,
+                gapIn
+            });
+        }
+
+        initPlannerControls();
+    </script>
+</body>
+
+</html>
